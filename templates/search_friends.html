@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<html>
+<head>
+    <title>Search Friends</title>
+</head>
+<body>
+    <h1>Search Friends</h1>
+    {% include 'alerts.html' %}
+    <form method="GET">
+        <input type="text" name="query" placeholder="Search by username">
+        <button type="submit">Search</button>
+    </form>
+    <br>
+    {% if friends %}
+        <div class="col-md-2">
+            {% for friend in friends %}
+                <div class="card">
+                    {% if friend.userprofile.profile_pic %}
+                        <img src="{{ MEDIA_URL }}{{ friend.userprofile.profile_pic.url }}" class="card-img-top img-fluid" alt="Profile Picture" style="max-width: 221px; max-height: 200px;">
+                    {% else %}
+                        <p>No Profile Pic added</p>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ friend.username }}</h5>
+                        {% if friend.userprofile.is_friend %}
+                            <a href="{% url 'remove_friend' friend.id %}" class="btn btn-danger">Remove Friend</a>
+                        {% elif friend.userprofile.is_pending %}
+                            <a href="{% url 'cancel_friend_request' friend.id %}" class="btn btn-secondary">Cancel Friend Request</a>
+                        {% else %}
+                            <a href="{% url 'send_friend_request' friend.id %}" class="btn btn-primary">Send Friend Request</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% if query and not friends %}
+            <p>No friends found.</p>
+        {% else %}
+            <p>No data found.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
+{% endblock %}

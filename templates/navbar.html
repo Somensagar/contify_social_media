@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary text-white">
+  <a class="navbar-brand" href="#" style="color: white;">Contify Socialmedia</a>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'homepage' %}" style="color: white;"><i class="fas fa-home"></i> Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'profile' username=user.username %}" style="color: white;"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'view_friends_list' %}" style="color: white;"><i class="fa fa-users" aria-hidden="true"></i> Friends</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'view_friend_requests' %}" style="color: white;"><i class="fa fa-user-plus" aria-hidden="true"></i> Friend Requests</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'search_friends' %}" style="color: white;"><i class="fa fa-search" aria-hidden="true"></i> Search Friends</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'create_post' %}" style="color: white;"><i class="fa fa-plus" aria-hidden="true"></i> Create Post</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_post_list' %}" style="color: white;"><i class="fa fa-list" aria-hidden="true"></i> Your Posts</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <span>Hi {{ request.user|capfirst }}<a href="{% url 'logout' %}"><button type="button" class="btn btn-outline-danger mx-2 my-sm-0">Logout</button></a></span>
+    </form>
+  </div>
+</nav>

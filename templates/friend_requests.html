@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Friend Requests</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Friend Requests</h1>
+    {% include 'alerts.html' %}
+    {% if friend_requests %}
+        <div class="container">
+            <div class="row">
+                {% for friend_request in friend_requests %}
+                    <div class="col-md-3">
+                        <div class="card">
+                            {% if friend_request.user.userprofile.profile_pic %}
+                                <img src="{{ friend_request.user.userprofile.profile_pic.url }}" class="card-img-top img-fluid" alt="Profile Picture" style="max-width: 253px; max-height: 200px;">
+                            {% else %}
+                                <p>No Profile Pic added</p>
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ friend_request.user.username }}</h5>
+                                <a href="{% url 'accept_friend_request' friend_request.user.id %}" class="btn btn-primary">Accept</a>
+                                <a href="{% url 'cancel_friend_request' friend_request.user.id %}" class="btn btn-danger">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>No friend requests.</p>
+    {% endif %}
+{% endblock %}

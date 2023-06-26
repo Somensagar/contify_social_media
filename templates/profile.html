@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Profile</title>
+{% endblock %}
+
+{% block content %}
+{% include 'alerts.html' %}
+    <h1>Welcome, {{ userprofile.user.username }}</h1>
+    
+    <h2>Profile Picture:</h2>
+    {% if userprofile.profile_pic %}
+        <img src="{{ MEDIA_URL }}{{ userprofile.profile_pic.url }}" width="300" height="200">
+    {% else %}
+        <p>No profile picture available.</p>
+    {% endif %}
+    
+    <h2>Personal Details:</h2>
+    <p>Age: {{ userprofile.age }}</p>
+    <p>Gender: {{ userprofile.gender }}</p>
+    <p>Date of Birth: {{ userprofile.dob }}</p>
+<p class="message">
+    <a href="{% url 'update_profile' username=user.username %}" type="submit" value="Submit">
+        <button type="button" class="btn btn-outline-warning mx-2 my-sm-0">Update Profile Details</button>
+    </a>
+</p>
+{% endblock %}

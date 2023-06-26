@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Friend List</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Friend List</h1>
+{% include 'alerts.html' %}
+    <div class="container-fluid">
+        {% if friends %}
+            <div class="row">
+                {% for friend in friends %}
+                    <div class="col-md-2">
+                        <div class="card">
+                            {% if friend.friend.userprofile.profile_pic %}
+                                <img src="{{ friend.friend.userprofile.profile_pic.url }}" alt="{{ friend.friend.userprofile.user.username }}" class="card-img-top" style="max-width: 221px; max-height: 200px;">
+                            {% else %}
+                                <div class="no-profile-pic">No Profile Pic added</div>
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ friend.friend.userprofile.user.username }}</h5>
+                                {% if friend.friend.id %}
+                                    <a href="{% url 'remove_friend' friend.friend.id %}" class="btn btn-danger">Remove</a>
+                                {% else %}
+                                    <a href="{% url 'remove_friend' '0' %}" class="btn btn-danger">Remove</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No friends.</p>
+        {% endif %}
+    </div>
+{% endblock %}

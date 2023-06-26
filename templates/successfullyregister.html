@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'cdnlines.html' %}
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>Successfully Register Page</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+{% include 'alerts.html' %}
+<div class="container text-center">
+  <p class="message middle">
+    <a href="{% url 'user_login' %}" type="submit" value="Submit">
+      <button type="button" class="btn btn-outline-warning mx-2 my-sm-0">Login Page</button>
+    </a>
+  </p>
+</div>
+{% endblock %}
+</body>
+</html>

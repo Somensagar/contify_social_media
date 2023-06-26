@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <style>
+
+	*{
+  margin: 0;
+  padding: 0;
+}
+body{
+  background-size: cover;
+  background-position: center;
+  font-family: sans-serif;
+}
+.register-page
+{
+  width: 400px;
+  padding: 10% 0 0;
+  margin : auto;
+}
+.form
+{
+  position: relative;
+  background: #000;
+  max-width: 400px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+}
+.form input, .form select
+{
+  outline: none;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form label, .form h4
+{
+ font-size: 18px;
+ color: #fff;
+}
+.form button[type="submit"] {
+    text-transform: uppercase;
+    outline: 0;
+    background: green;
+    width: 100%;
+    border: none;
+    padding: 15px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .5s;
+  }
+
+  .form button[type="reset"] {
+    text-transform: uppercase;
+    outline: 0;
+    background: red;
+    width: 100%;
+    border: none;
+    padding: 15px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .5s;
+  }
+.form .message
+{
+  margin: 15px 0 0;
+  color: #fff;
+  font-size: 12px;
+}
+.form .message a
+{
+  color: orange;
+  text-decoration: none;
+}
+	</style>
+
+    <meta charset="utf-8">
+    {% include 'cdnlines.html' %}
+    <title>Register Page</title>
+  </head>
+  <body>
+    <div class="register-page">
+  <div class="form">
+<form method="POST" class="register-form" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% include 'alerts.html' %}
+      <h4>Contify Social Media Register Page</h4>
+      <label>Username:</label>
+      <input type="text" name="user" required>
+      <label>Password:</label><input type="password" id="password" name="password" required>
+      <label>Age:</label>
+      <input type="number"  name="age" required>
+      <label>Gender:</label>
+      <select  type="text" name="gender" required>
+          <option value="----">----</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+      </select>
+      <label>DOB:</label>
+      <input type="date" id="dob" name="dob" required>
+      <label>Profilepic:</label>
+      <input type="file" id="profile_pic" name="profile_pic" required>
+      <button type="submit" value="Submit">Submit</button><br><br>
+      <button type="reset" value="Clear">Clear</button>
+      <p class="message"><a href="{% url 'user_login' %}" type="submit" value="Submit">Login Page</a></p>
+    </form>
+  </div>
+</div>
+  </body>
+</html>

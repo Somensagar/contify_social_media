@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang="en">
+<head>
+    {% include 'cdnlines.html' %}
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>User Post List Page</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+{% include 'alerts.html' %}
+<div class="container">
+    <h1>My Posts</h1>
+    <ul class="list-group">
+        {% for post in posts %}
+            <li class="list-group-item">
+                <h3>{{ post.title }}</h3>
+                <p>Posted on: {{ post.date_posted }}</p>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="Post Image" class="post-image" style="max-width: 1000px;">
+                {% endif %}
+                <p>Posted by: {{ post.user }}</p>
+                <a href="{% url 'post_update' post.id %}" class="btn btn-primary">Edit</a>
+                <form method="post" action="{% url 'post_delete' post.id %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </li>
+        <br>
+        {% empty %}
+            <li>No posts found.</li>
+        {% endfor %}
+    </ul>
+    <div class="pagination justify-content-center mt-4">
+        {% if posts.has_previous %}
+            <a class="btn btn-primary" href="?page={{ posts.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in posts.paginator.page_range %}
+            {% if posts.number == num %}
+                <a class="btn btn-primary active" href="?page={{ num }}">{{ num }}</a>
+            {% else %}
+                <a class="btn btn-primary" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if posts.has_next %}
+            <a class="btn btn-primary" href="?page={{ posts.next_page_number }}">Next</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

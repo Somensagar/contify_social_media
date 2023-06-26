@@ -1,0 +1,34 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Profile Details</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="user">Username:</label>
+    <input type="text" id="user" name="user" value="{{ userprofile.user.username }}" required><br><br>
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" value="{{ userprofile.age }}" required><br><br>
+    
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+      <option value="" {% if not userprofile.gender %}selected{% endif %}>-- Select Gender --</option>
+      <option value="male" {% if userprofile.gender == "male" %}selected{% endif %}>Male</option>
+      <option value="female" {% if userprofile.gender == "female" %}selected{% endif %}>Female</option>
+      <option value="other" {% if userprofile.gender == "other" %}selected{% endif %}>Other</option>
+    </select><br><br>
+    
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" value="{{ userprofile.dob|date:'Y-m-d' }}" required><br><br>
+    
+    <label for="profile_pic">Profile Picture:</label>
+    {% if userprofile.profile_pic %}
+    <img src="{{ userprofile.profile_pic.url }}" width="300" height="200"><br><br>
+    {% endif %}
+    <input type="file" id="profile_pic" name="profile_pic"><br><br>
+    
+    <input type="submit" value="Update Profile">
+    <input type="reset" value="Reset">
+    <p><a href="{% url 'passwordupdated'  %}">Change Password</a></p>
+  </form>
+{% endblock %}
